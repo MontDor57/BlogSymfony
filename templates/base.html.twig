@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+            <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand" href="#">Mon Blog</a>
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Accueil </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/actualites">Actualiter <span class="sr-only">(current)</span></a>
+                    </li> 
+                </ul>
+                <ul class="nav justify-content-end"> 
+                    {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout" tabindex="-1" aria-disabled="true">Déconnexion</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login" tabindex="-1" aria-disabled="true">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register" tabindex="-1" aria-disabled="true">Register</a>
+                    </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin" tabindex="-1" aria-disabled="true">Administration</a>
+                    </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_USER') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/actualites/article/new" tabindex="-1" aria-disabled="true">Mon Compte</a>
+                    </li>
+                    {% endif %}
+                </ul>
+        </div>
+        </nav>
+        {% block body %}
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des Articles!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; width: 80%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+<div class="row row-cols-3 row-cols-md-4">
+    {% for article in articles %}
+    <div class="col mb-4">
+        <div class="card h-100">
+            <img src="{{ vich_uploader_asset(article, 'imageFile') }}" class="card-img-top" width="150px" height="200px" alt="">
+            <div class="card-body">
+                <h5 class="card-title">{{ article.titre }}</h5>
+                <p class="card-text">{{ article.contenu | striptags | easyadmin_truncate(24) | raw }}</p>
+                <a href="/actualites/article/{{ article.slug }}" class="btn btn-primary">Voir l'article</a>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Mis a jour le {{ article.CreatedAt | date }}</small>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

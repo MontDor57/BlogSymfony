@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{{ article.titre }}<br>
+{{ article.contenu | raw}}
+
+<h2>Commentaires ({{ article.commentaires | length }})<h2>
+{% for commentaire in article.commentaires %}
+    <p>Publiée par {{ commentaire.pseudo }}</p>
+    <div>{{ commentaire.contenu }}</div>
+{% else %}
+    <p>Il n'y a pas de commentaire</p>
+{% endfor %}
+
+<h2> Ajout Com </h2>
+
+{{ form(formComment) }}
+{% endblock %}
